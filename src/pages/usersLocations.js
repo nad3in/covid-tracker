@@ -18,7 +18,6 @@ const UsersLocations = () => {
                             locations.push({ name: user.name, location: user.entries[user.entries.length - 1].location, temp: user.entries[user.entries.length - 1].temp });
                         }
                     });
-                    console.log(locations)
                     setLocations(locations);
                 }
             }
