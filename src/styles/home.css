@@ -1,0 +1,25 @@
+.side-panel{
+    padding-left: 2px;  
+    width: 8%;
+}
+.side-panel-body{
+    padding-left: 2px
+}
+
+@media only screen and (min-width:600px){
+    .side-panel{
+    width: 8%;
+    }
+    .side-panel-body{
+        padding-left: 20%
+    }
+}
+
+@media only screen and (min-width: 992px){
+    .side-panel{
+        width: 5%;
+        padding-left: 0px;}
+    .side-panel-body{
+            padding-left: 20%
+    }
+}
