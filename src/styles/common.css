@@ -1,0 +1,20 @@
+.user-info-card-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: linear-gradient(to right, #0277BD , white);
+}
+.home-icon{
+    font-size: 1.5rem;
+    margin: 0.8rem 0rem;
+}
+.dark-gray-font{
+    color: #757575;
+}
+.padding-top-8{
+    padding-top: 0.5rem;
+}
+.text-center{
+    text-align: center;
+}
