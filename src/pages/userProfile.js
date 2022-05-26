@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router'
 
 const UserProfile = () => {
     const [location, setLocation] = useState();
+    const [loading, setLoading] = useState(false);
     const history = useNavigate();
     useEffect(() => {
         if (navigator.geolocation) {
@@ -23,7 +24,8 @@ const UserProfile = () => {
         }
     }, []);
 
-    const submitTempratureEntriy = async (formValues) => {
+    const submitTempratureEntriy = async (formValues, reset) => {
+        setLoading(true);
         const email = localStorage.getItem('email')
         const res = await put('addtemprature',
             {
@@ -39,7 +41,9 @@ const UserProfile = () => {
             if (data) {
                 history('/userProfile');
             }
+            reset();
         }
+        setLoading(false);
 
     }
     const validationSchema = Yup.object({
@@ -48,7 +52,7 @@ const UserProfile = () => {
             .min(30, 'Min value 30.')
             .max(45, 'Max value 45.').required('Required'),
     })
-    return (<TempratureForm submitFunction={submitTempratureEntriy} validationSchema={validationSchema} />);
+    return (<TempratureForm submitFunction={submitTempratureEntriy} validationSchema={validationSchema} loading={loading} />);
 }
 
 export default UserProfile;

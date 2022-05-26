@@ -1,8 +1,8 @@
 import { Formik } from 'formik';
 import { Form } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
+import LoadingButton from '../common/loadingButton';
 
-const UserInfoForm = ({ formType, submitButtonLabel, submitFunction, validationSchema, formError, formTitle }) => {
+const UserInfoForm = ({ formType, submitButtonLabel, submitFunction, validationSchema, formError, formTitle, IsLoading }) => {
     const initialValues = {
         name: '',
         email: '',
@@ -18,7 +18,7 @@ const UserInfoForm = ({ formType, submitButtonLabel, submitFunction, validationS
                 validationSchema={validationSchema}
                 onSubmit={submitFunction}
             >
-                {({ errors, values, handleBlur, handleChange, handleSubmit }) => (
+                {({ errors, values, isValid, dirty, handleBlur, handleChange, handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
                         {formType === "signup" && <Form.Group className="mb-3" controlId="name">
                             <Form.Label className='dark-gray-font'>Name</Form.Label>
@@ -76,10 +76,8 @@ const UserInfoForm = ({ formType, submitButtonLabel, submitFunction, validationS
                             <Form.Control.Feedback type='invalid'>{errors.confirmPassword}</Form.Control.Feedback>
 
                         </Form.Group>}
-                        {formError && <Form.Text variant={'danger'}>{formError}</Form.Text>}
-                        <Button variant="primary" type="submit">
-                            {submitButtonLabel}
-                        </Button>
+                        {formError && <div> <Form.Text style={{ color: "red" }}>{formError}</Form.Text> </div>}
+                        <LoadingButton submitButtonLabel={submitButtonLabel} isDisabled={!(isValid && dirty)} isLoading={IsLoading} />
                     </Form>)
                 }
             </Formik>

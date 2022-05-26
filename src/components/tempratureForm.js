@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import { Formik } from 'formik';
 import "../styles/common.css"
 import "../styles/userProfile.css"
+import LoadingButton from "../common/loadingButton";
 
-const TempratureForm = ({ submitFunction, validationSchema }) => {
+const TempratureForm = ({ submitFunction, validationSchema, loading }) => {
     const initialValues = {
         userTemprature: undefined,
         additionalInfo: ''
@@ -16,8 +17,8 @@ const TempratureForm = ({ submitFunction, validationSchema }) => {
                 validationSchema={validationSchema}
                 onSubmit={submitFunction}
             >
-                {({ errors, values, handleBlur, handleChange, handleSubmit }) => (
-                    <Form onSubmit={handleSubmit}>
+                {({ errors, values, handleBlur, handleChange, handleSubmit, resetForm, isValid, dirty }) => (
+                    <Form onSubmit={() => handleSubmit(values, resetForm)}>
                         <Form.Group className="mb-3" controlId="userTemprature">
                             <Form.Label className='dark-gray-font'>Temprature</Form.Label>
                             <Form.Control placeholder="Enter temprature"
@@ -39,9 +40,7 @@ const TempratureForm = ({ submitFunction, validationSchema }) => {
                                 onChange={handleChange} />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
-                            submit
-                        </Button>
+                        <LoadingButton submitButtonLabel={"submit"} isDisabled={!(isValid && dirty)} isLoading={loading} />
                     </Form>)}
             </Formik >
         </div>

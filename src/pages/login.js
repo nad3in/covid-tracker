@@ -11,8 +11,10 @@ import '../styles/login.css'
 
 const Login = () => {
     const [error, setError] = useState();
+    const [loading, setLoading] = useState(false);
     const history = useNavigate();
     const login = async (formValues) => {
+        setLoading(true);
         const res = await post('login', { email: formValues.email, password: formValues.password })
         if (res.ok) {
             let data = await res.json()
@@ -27,6 +29,7 @@ const Login = () => {
             setError(error);
             console.log(error);
         }
+        setLoading(false);
 
     }
     const validationSchema = Yup.object({
@@ -43,6 +46,7 @@ const Login = () => {
                         validationSchema={validationSchema}
                         formError={error}
                         formTitle={LOGIN_FORM_TITLE}
+                        IsLoading={loading}
                     />
                     <p className="mb-0 dark-gray-font padding-top-8">
                         {NOT_CURRENT_USER_TEXT} <a href="/signup">here</a>
